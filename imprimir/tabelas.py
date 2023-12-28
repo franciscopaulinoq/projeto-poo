@@ -2,6 +2,9 @@ import pandas
 
 class Tabelas:  
   def criarDataframeChave(self, chaves):
+    '''
+    Cria uma tabela com os dados de todas as chaves
+    '''
     tabela_chaves = {
       'Número': [chave.get_numero() for chave in chaves],
       'Ambiente': [chave.get_ambiente() for chave in chaves],
@@ -12,6 +15,9 @@ class Tabelas:
     return pandas.DataFrame(tabela_chaves)
   
   def criarDataframeChaveFiltrada(self, chave):
+    '''
+    Cria uma tabela com os dados de uma chave específica que foi filtrada
+    '''
     tabela_chave = {
       'Número': [chave.get_numero()],
       'Ambiente': [chave.get_ambiente()],
@@ -22,6 +28,9 @@ class Tabelas:
     return pandas.DataFrame(tabela_chave)
 
   def criarDataframeObjeto(self, objetos):
+    '''
+    Cria uma tabela com os dados de todas as chaves
+    '''
     tabela_objetos = {
        'ID': [objeto.get_id() for objeto in objetos],
        'Nome': [objeto.get_nome() for objeto in objetos],
