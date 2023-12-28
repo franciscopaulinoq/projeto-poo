@@ -6,9 +6,12 @@ import configparser, csv, os
 class Leitor:
   def __init__(self):
     self.config = configparser.ConfigParser()
-    self.config.read("config.ini")
+    self.config.read("configuracoes.ini")
 
   def csv_esta_vazio(self, arquivo):
+    '''
+    Verifica se o csv está vazio, se sim retorna True, se não, retorna False
+    '''
     if os.path.exists(arquivo):
       with open(arquivo, "r", newline='') as arquivo_csv:
         leitor_csv = csv.reader(arquivo_csv)
@@ -20,6 +23,10 @@ class Leitor:
       return True
 
   def ler_csv_chaves(self, pessoas):
+    '''
+    Abre o arquivo csv.chaves no modo leitura(read) e transforma os valores das linhas
+    em um objeto Chave, dando append desse objeto em uma lista, retorna essa lista 
+    '''
     chaves = ListaChave()
     if not self.csv_esta_vazio(self.config.get("csv", "csv.chaves")):
       with open(self.config.get("csv", "csv.chaves"), 'r', newline='') as arquivo_csv:
@@ -42,6 +49,10 @@ class Leitor:
       return chaves
 
   def ler_csv_objetos(self, operadores, pessoas):
+    '''
+    Abre o arquivo csv.objetos no modo leitura(read) e transforma os valores das linhas
+    em um objeto Objeto, dando append desse objeto em uma lista. Retorna essa lista 
+    '''
     objetos = ListaObjeto()
     if not self.csv_esta_vazio(self.config.get("csv", "csv.objetos")):
       with open(self.config.get("csv", "csv.objetos"), 'r', newline='') as arquivo_csv:
@@ -76,6 +87,10 @@ class Leitor:
        return objetos
 
   def ler_csv_operadores(self):
+    '''
+    Abre o arquivo csv.operadores no modo leitura(read) e transforma os valores das linhas
+    em um objeto Operador, dando append desse objeto em uma lista. Retorna essa lista 
+    '''
     operadores = ListaOperador()
     if not self.csv_esta_vazio(self.config.get("csv", "csv.operadores")):
       with open(self.config.get("csv", "csv.operadores"), 'r', newline='') as arquivo_csv:
@@ -95,6 +110,10 @@ class Leitor:
       return operadores
 
   def ler_csv_pessoas(self):
+    '''
+    Abre o arquivo csv.operadores no modo leitura(read) e transforma os valores das linhas
+    em um objeto Operador, dando append desse objeto em uma lista. Retorna essa lista 
+    '''
     pessoas = ListaPessoa()
     if not self.csv_esta_vazio(self.config.get("csv", "csv.pessoas")):
       with open(self.config.get("csv", "csv.pessoas"), 'r', newline='') as arquivo_csv:
