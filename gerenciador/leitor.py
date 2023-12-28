@@ -6,9 +6,12 @@ import configparser, csv, os
 class Leitor:
   def __init__(self):
     self.config = configparser.ConfigParser()
-    self.config.read("config.ini")
+    self.config.read("configuracoes.ini")
 
   def csv_esta_vazio(self, arquivo):
+    '''
+    Verifica se o csv está vazio, se sim retorna True, se não, retorna False
+    '''
     if os.path.exists(arquivo):
       with open(arquivo, "r", newline='') as arquivo_csv:
         leitor_csv = csv.reader(arquivo_csv)

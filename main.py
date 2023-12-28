@@ -328,7 +328,7 @@ class Main:
 
   def __valida_admin(self):
     config = configparser.ConfigParser()
-    config.read("config.ini")
+    config.read("configuracoes.ini")
     print("   VALIDAR ACESSO   ")
     print("---------------------")
     usuario = input("Usuário: ")

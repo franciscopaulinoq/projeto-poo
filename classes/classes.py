@@ -38,6 +38,10 @@ class Servidor(Pessoa):
 
 class LoginMixIn:
   def login(operador, matricula, senha):
+    '''
+    Verifica se a senha e a matrícula informadas são
+    iguais as do operador, retorna um valor booleano
+    '''
     if operador.get_matricula() == matricula and operador.get_senha() == senha:
       return True
     else:
@@ -52,30 +56,58 @@ class Operador(Pessoa, LoginMixIn):
     return self.__senha
 
   def cadastrar_chave(self, numero, ambiente, lista_chaves):
+    '''
+    Adiciona um novo objeto chave na lista de chaves
+    com os valores de numero e amboente recebidos
+    '''
     lista_chaves.append(Chave(numero, ambiente))
+    
 
   def registrar_saida_chave(self, chave, pessoa):
+    '''
+    Adiciona um objeto pessoa como valor do atributo pessoa_que_retirou,
+    muda o valor booleano do atributo disponivel para False e adiciona o
+    horário atual ao atributo horario_retirada
+    '''
     chave.set_pessoa_que_retirou(pessoa)
     chave.set_disponivel(False)
     chave.set_horario_retirada(datetime.today().astimezone(timezone(timedelta(hours=-3))).strftime('%d/%m/%Y %H:%M'))
     return True
   
   def coletar_chave(self, chave):
+    '''
+    Muda os atributos horario_retirada e pessoa_que_retirou para None
+    e muda o valor booleano do atributo disponivel para True
+    '''
     chave.set_pessoa_que_retirou(None)
     chave.set_disponivel(True)
     chave.set_horario_retirada(None)
     return True
   
   def registrar_objeto(self, id, nome, descricao, local_encontro, lista_objetos):
+    '''
+    Adiciona um novo objeto objeto na lista de objetos recebida
+    com os valores recebidos de id, nome, descricao e local_encontro,
+    '''
     lista_objetos.append(Objeto(id, nome, descricao, self, local_encontro))
     return True
   
   def retirar_objeto(self, objeto, pessoa):
+    '''
+    Adiciona um objeto pessoa como valor do atributo pessoa_que_buscou e adiciona 
+    o horário atual ao atributo horario_retirada
+    '''
     objeto.set_pessoa_que_buscou(pessoa)
     objeto.set_horario_retirada(datetime.today().astimezone(timezone(timedelta(hours=-3))).strftime('%d/%m/%Y %H:%M'))
     return True
   
   def cadastrar_pessoa(self, nome, matricula, contato, ocupacao, lista_pessoas):
+    '''
+    Verifica se o dado do atributo ocupacao é 'discente', 'docente' ou
+    'servidor' e cria um objeto de acordo com a opcão informada usando
+    os valores dados de nome, matricula, contato, ocupacao, adiciona-se
+    esse objeto a lista_pessoas atribuída
+    '''
     if ocupacao.lower() == "discente":
       lista_pessoas.append(Discente(nome, matricula, contato))
     if ocupacao.lower() == "docente":
